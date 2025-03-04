@@ -1,8 +1,8 @@
 name: Check Build Status
 
 on:
-  workflow_dispatch:
-
+  schedule:
+  - cron: '50 15 * * *'
 jobs:
   check-build-status:
     runs-on: ubuntu-latest

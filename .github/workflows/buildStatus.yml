@@ -1,0 +1,29 @@
+name: Check Build Status
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check-build-status:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Get build statuses
+      id: get-statuses
+      run: |
+        statuses=$(gh run list -w "ci.yml" --limit 100 --json status --jq '.[].status')
+        echo "$statuses"
+        echo "statuses=$statuses" >> $GITHUB_ENV
+
+    - name: Count passed builds
+      id: count-passed
+      run: |
+        passed_count=$(echo "$statuses" | grep -c "completed")
+        echo "passed_count=$passed_count" >> $GITHUB_ENV
+
+    - name: Output result
+      run: |
+        echo "Number of passed builds in the last 100 runs: $passed_count"

@@ -1,0 +1,32 @@
+name: Check Build Status
+permissions: read-all
+
+on:
+  schedule:
+    - cron: '50 15 * * *'
+jobs:
+  check-build-status:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get build statuses
+        id: get-statuses
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          statuses="$(gh run list --limit 100 --json status --jq '.[].status')"
+          echo "statuses=${statuses}" >> "${GITHUB_ENV}"
+
+      - name: Count passed builds
+        id: count-passed
+        run: |
+          # shellcheck disable=SC2086 # Intended grep usage
+          passed_count="$(echo ${statuses} | grep -c 'completed')"
+          echo "passed_count=${passed_count}" >> "${GITHUB_ENV}"
+
+      - name: Output result
+        run: |
+          echo "Number of passed builds in the last 100 runs: ${passed_count}"

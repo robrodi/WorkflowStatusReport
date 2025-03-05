@@ -58,6 +58,7 @@ jobs:
         uses: ./
         with:
           milliseconds: 2000
+          workflow: linter.yml
 
       - name: Print Output
         id: output

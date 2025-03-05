@@ -9,6 +9,13 @@ branding:
 
 # Define your inputs here.
 inputs:
+  days:
+    description: Number of days of Run History to fetch
+    required: true
+    default: '7'
+  workflow:
+    description: workflow file name
+    required: true
   milliseconds:
     description: Your input description here
     required: true

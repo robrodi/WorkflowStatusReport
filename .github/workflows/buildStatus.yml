@@ -2,8 +2,9 @@ name: Check Build Status
 permissions: read-all
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '50 15 * * *'
+    - cron: '3 2 1 * *'
 jobs:
   check-build-status:
     runs-on: ubuntu-latest
@@ -19,14 +20,12 @@ jobs:
         run: |
           statuses="$(gh run list --limit 100 --json status --jq '.[].status')"
           echo "statuses=${statuses}" >> "${GITHUB_ENV}"
-
       - name: Count passed builds
         id: count-passed
         run: |
           # shellcheck disable=SC2086 # Intended grep usage
           passed_count="$(echo ${statuses} | grep -c 'completed')"
           echo "passed_count=${passed_count}" >> "${GITHUB_ENV}"
-
       - name: Output result
         run: |
           echo "Number of passed builds in the last 100 runs: ${passed_count}"

@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  super-linter:
+    container_name: super-linter
+    image: github/super-linter
+    environment:
+      - RUN_LOCAL=true
+      - USE_FIND_ALGORITHM=true
+      - VALIDATE_PYTHON_BLACK=true
+    volumes:
+      - /Users/rob.rodi/source/WorkflowStatusReport:/tmp/lint

@@ -17,6 +17,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # shellcheck disable=SC2046 # Intended status split
           statuses="$(gh run list --limit 100 --json status --jq '.[].status')"
           echo "$statuses"
           echo "statuses=$statuses" >> $GITHUB_ENV
@@ -24,6 +25,7 @@ jobs:
       - name: Count passed builds
         id: count-passed
         run: |
+          # shellcheck disable=SC2046 # Intended grep usage
           passed_count="$(echo $statuses | grep -c 'completed')"
           echo "passed_count=$passed_count" >> $GITHUB_ENV
 

@@ -19,16 +19,15 @@ jobs:
         run: |
           # shellcheck disable=SC2086 # Intended status split
           statuses="$(gh run list --limit 100 --json status --jq '.[].status')"
-          echo "$statuses"
-          echo "statuses=$statuses" >> $GITHUB_ENV
+          echo "statuses=${statuses}" >> ${GITHUB_ENV}
 
       - name: Count passed builds
         id: count-passed
         run: |
           # shellcheck disable=SC2086 # Intended grep usage
-          passed_count="$(echo $statuses | grep -c 'completed')"
-          echo "passed_count=$passed_count" >> $GITHUB_ENV
+          passed_count="$(echo ${statuses} | grep -c 'completed')"
+          echo "passed_count=${passed_count}" >> ${GITHUB_ENV}
 
       - name: Output result
         run: |
-          echo "Number of passed builds in the last 100 runs: $passed_count"
+          echo "Number of passed builds in the last 100 runs: ${passed_count}"

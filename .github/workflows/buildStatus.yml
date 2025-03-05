@@ -2,8 +2,9 @@ name: Check Build Status
 permissions: read-all
 
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '50 15 * * *'
+    - cron: '3 2 1 * *'
 jobs:
   check-build-status:
     runs-on: ubuntu-latest

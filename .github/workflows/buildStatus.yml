@@ -19,7 +19,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           summary=$(gh run list --limit 100 --json conclusion --jq '.[].conclusion' | sort | uniq -c)
-          echo "${ summary }" >> $GITHUB_STEP_SUMMARY
+          echo "${summary}" >> "${GITHUB_STEP_SUMMARY}"
           statuses="$(gh run list --limit 100 --json conclusion --jq '.[].conclusion')"
           echo "statuses=${statuses}" >> "${GITHUB_ENV}"
       - name: Count passed builds

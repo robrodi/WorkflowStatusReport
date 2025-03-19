@@ -65,7 +65,7 @@ jobs:
         run: |
           echo "${{ steps.test-action.outputs.time }}"
           echo "testValue: ${{ steps.test-action.outputs.testValue }}"
-          ehco "Test2: ${{ needs.test-action.outputs[format('{0}{1}', 'test','Value')] }}"
+          echo "Test2: ${{ needs.test-action.outputs[format('{0}{1}', 'test','Value')] }}"
   
   printIt:
     name: Dynamic Test
@@ -75,5 +75,5 @@ jobs:
         id: output
         run: |
           echo "testValue: ${{ steps.test-action.outputs.testValue }}"
-          ehco "Test2: ${{ needs.test-action.outputs[format('{0}{1}', 'test','Value')] }}"
+          echo "Test2: ${{ needs.test-action.outputs[format('{0}{1}', 'test','Value')] }}"
 

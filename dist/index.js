@@ -27276,6 +27276,7 @@ async function run() {
         coreExports.debug(new Date().toTimeString());
         // Set outputs for other workflow steps to use
         coreExports.setOutput('time', new Date().toTimeString());
+        coreExports.setOutput('testValue', new Date().toTimeString());
     }
     catch (error) {
         // Fail the workflow run if an error occurs

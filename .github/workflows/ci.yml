@@ -64,4 +64,16 @@ jobs:
         id: output
         run: |
           echo "${{ steps.test-action.outputs.time }}"
-          echo "${{ steps.test-action.outputs.testValue }}"
+          echo "testValue: ${{ steps.test-action.outputs.testValue }}"
+          ehco "Test2: ${{ needs.test-action.outputs[format('{0}{1}', 'test','Value')] }}"
+  
+  printIt:
+    name: Dynamic Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Output
+        id: output
+        run: |
+          echo "testValue: ${{ steps.test-action.outputs.testValue }}"
+          ehco "Test2: ${{ needs.test-action.outputs[format('{0}{1}', 'test','Value')] }}"
+
